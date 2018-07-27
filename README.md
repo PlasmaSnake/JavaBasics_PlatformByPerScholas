@@ -10,6 +10,6 @@ Java Basics class exercises.
     2. Add two (or three) numbers
     3. Odd or Even
     4. Which day is it? X days ahead of Y-day. 
-  Issues Met: Initializing new objects and object/value comparison (== compares objects AND value, where as object.equals(obj) compares value)
+  Issues Met: Object/value comparison (== compares objects AND value, where as object.equals(obj) compares value)
 ### Two: Conditional Statements
   ###### Exercises:

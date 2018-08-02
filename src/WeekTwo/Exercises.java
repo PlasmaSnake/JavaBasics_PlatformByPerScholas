@@ -10,17 +10,22 @@ import java.util.Scanner;
 // 4a. Conditionals w/ BMI
 // 4b. Conditionals w/ Taxes
 // 5. Logical operators
+// 6. Switch-case
 public class Exercises {
 
 	public static void main(String[] args) {
-		// uncomment to test
+		// uncomment to test ONE function
+		// to run all, declare "public static Scanner in = new Scanner(System.in);" in Exercise class.
+			// then in.close(); within the main function.
 	// 	System.out.println(max(1,2)); //test for max [wont work b.c. mismatched type]
 	//	System.out.printf("Random Character: %s", randCharGenerator() );
 	//	phoneFormatter("6462312422");
 	//	addQuestion();
 	//	determineBMI();
 	//	computeTaxes();
-		isDivisible();
+	//	isDivisible();
+	//	zodiacSign();
+		whileTest();
 	}
 	
 	//Method Overloading 
@@ -151,9 +156,66 @@ public class Exercises {
 		else System.out.printf("%d is not divisible by 2 or 3.", num);
 		if (divByTwoAndThree) System.out.printf("%d is divisible by 2 and 3.\n", num);
 		if (divByTwoXorThree) {
-			if (num % 2 == 0)System.out.printf("%d is divisible only by 2.", num);
-			else System.out.printf("%d is divisible by 3.", num);
+			if (num % 2 == 0)System.out.printf("%d is divisible only by 2 but not 3.", num);
+			else System.out.printf("%d is divisible by only 3 but not 2.", num);
 		}
 		in.close();
+	}
+	//Switch case
+	public static void zodiacSign() {
+		Scanner in = new Scanner(System.in);
+		System.out.print("Enter a year to find out its Zodiac sign: ");
+		int year = in.nextInt();
+		String animal = new String();
+		switch(year%12) {
+		case 0:
+			animal = "monkey";
+			break;
+		case 1:
+			animal = "rooster";
+			break;
+		case 2:
+			animal = "dog";
+			break;
+		case 3:
+			animal = "pig";
+			break;
+		case 4:
+			animal = "rat";
+			break;
+		case 5:
+			animal = "ox";
+			break;
+		case 6:
+			animal = "tiger";
+			break;
+		case 7:
+			animal = "rabbit";
+			break;
+		case 8:
+			animal = "dragon";
+			break;
+		case 9:
+			animal = "snake";
+			break;
+		case 10:
+			animal = "horse";
+			break;
+		case 11:
+			animal = "sheep";
+			break;
+		}
+		System.out.printf("The year %d is the year of the %s", year, animal);
+		in.close();
+	}
+	//End switch case
+	
+	public static void whileTest() {
+		int count = 0;
+		while (count < 100) {
+			System.out.println("Welcome to Java.");
+			count++;
+		}
+		System.out.println(count);
 	}
 }

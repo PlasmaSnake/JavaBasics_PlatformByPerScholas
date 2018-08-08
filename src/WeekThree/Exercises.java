@@ -1,15 +1,18 @@
 package WeekThree;
 
 import java.util.Scanner;
+import java.util.Arrays;
 import java.util.PrimitiveIterator.OfDouble;
 import java.util.concurrent.CountDownLatch;
 
 import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MaximizeAction;
 import javax.swing.text.StyledEditorKit.ForegroundAction;
 
+import com.sun.corba.se.spi.orb.StringPair;
 import com.sun.javafx.image.IntPixelAccessor;
 import com.sun.scenario.effect.impl.prism.PrImage;
 
+import jdk.internal.org.objectweb.asm.tree.IntInsnNode;
 import jdk.management.resource.internal.TotalResourceContext;
 
 /* Loops and Arrays
@@ -21,6 +24,9 @@ import jdk.management.resource.internal.TotalResourceContext;
  * 	3. Continue/Break
  * 	!!!!!! Arrays !!!!!!
  * 	4. fibonacciArray - Fill int[10] with fib numbers
+ *  5. Reverse a string
+ *  6. find the max of a number in an array int[]
+ *  7. Use a helper method that has an array as argument
 */
 public class Exercises {
 
@@ -32,7 +38,10 @@ public class Exercises {
 	//	System.out.printf("GCD: %d", gcd);
 	//	doubleTuition();
 	//	displayPrimeNumbers();
-		fibonacciArray();
+	//	fibonacciArray();
+		stringReverse();
+	//	findMax();
+//		findTen();
 	}
 	// Add two random number and query user for answer until right
 	public static void addUntilRight() {
@@ -140,6 +149,68 @@ public class Exercises {
 		for (int i = 0; i < fib.length; i++) {
 			if (average < fib[i]) System.out.println(fib[i] + " is larger than the average");
 		}
-	}	
+	}
 	
+	public static void stringReverse() {
+		String name = "I am a Java Basics Student";
+		char[] nameArray = name.toCharArray();
+		char[] reverseName = new char[name.length()];
+		
+		//Via new variable
+		for (int i = nameArray.length-1, j = 0; i >= 0; i--, j++) {
+			reverseName[j] = nameArray[i];
+		}
+		String rName = new String(reverseName);
+		System.out.println(rName);
+		
+		//Via Swap
+		for(int i = 0; i < nameArray.length/2; i++) {
+			char temp = nameArray[i];
+			nameArray[i] = nameArray[nameArray.length-1-i]; 
+			nameArray[nameArray.length-i-1] = temp; 
+		}
+		System.out.println(nameArray);
+	}
+	
+	public static void findMax() {
+		int[] num = {5,3,7,3,2,7,7};
+		int max = 0, minIndex = -1;
+		for (int i = 0; i < num.length; i++) {
+			if (max < num[i]) {
+				max = num[i];
+				minIndex = i;
+			}
+		}
+		System.out.println(max + " is the biggest number at position " + minIndex);
+	}
+	
+	public static void findTen() {
+		int[] evenArray = new int[5];
+		for (int i = 0; i<5; i++) {
+			evenArray[i] = (i+1)*2;
+		}
+		System.out.println(adder(evenArray));
+	}
+	
+	private static int adder(int[] a1) {
+		int result = 0;
+		for (int val:a1) result+=val;
+		return result;
+	}
+	
+	static void valuePassing() {
+		String[] array = {"1","2","3"};
+		System.out.println(methodA(array));
+		methodB();
+	}
+	
+	static String methodA(String[] a) {
+		String concat = new String();
+		for (String n:a) concat+=n;
+		return concat;
+	}
+	static void methodB() {
+		System.out.println(methodA(new String[] {"U", "S", "A"}));
+	}
+		
 }

@@ -1,16 +1,22 @@
 package WeekThree;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 import java.util.PrimitiveIterator.OfDouble;
 import java.util.concurrent.CountDownLatch;
 
 import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MaximizeAction;
 import javax.swing.text.StyledEditorKit.ForegroundAction;
 
+import com.sun.corba.se.impl.oa.poa.ActiveObjectMap.Key;
 import com.sun.corba.se.spi.orb.StringPair;
 import com.sun.javafx.image.IntPixelAccessor;
 import com.sun.scenario.effect.impl.prism.PrImage;
+import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
 
 import jdk.internal.org.objectweb.asm.tree.IntInsnNode;
 import jdk.management.resource.internal.TotalResourceContext;
@@ -27,6 +33,9 @@ import jdk.management.resource.internal.TotalResourceContext;
  *  5. Reverse a string
  *  6. find the max of a number in an array int[]
  *  7. Use a helper method that has an array as argument
+ *  8. Anagram checker
+ *  **** Sort ****
+ *  9. BinarySearch
 */
 public class Exercises {
 
@@ -39,9 +48,15 @@ public class Exercises {
 	//	doubleTuition();
 	//	displayPrimeNumbers();
 	//	fibonacciArray();
-		stringReverse();
+//		stringReverse();
 	//	findMax();
 //		findTen();
+//		valuePassing();
+//		anagramCheck();
+		int[] arr = {100, 50, 73, 15, 9};
+//		int targetIndex = binarySearch(arr, 0, arr.length-1, 100);
+		int targetIndex = binarySearch(arr, 73);
+		System.out.print("Target index is " + targetIndex);
 	}
 	// Add two random number and query user for answer until right
 	public static void addUntilRight() {
@@ -212,5 +227,100 @@ public class Exercises {
 	static void methodB() {
 		System.out.println(methodA(new String[] {"U", "S", "A"}));
 	}
+
+	static void anagramCheck() {
+		Scanner in = new Scanner(System.in);
+		System.out.println("Enter two sequences of character to determine if they are anagrams.");
+		String w1 = in.nextLine(), w2 = in.nextLine();
+		char[] wordOne = w1.toUpperCase().toCharArray();
+		char[] wordTwo = w2.toUpperCase().toCharArray();
 		
+		if(w1.equals(w2)) {
+			System.out.printf("%s and %s are anagrams. ", w1,w2);
+			return;
+		}
+		if(w1.length() != w2.length()) { 
+			System.out.printf("%s and %s are not anagrams.", w1,w2);
+			return;
+		}
+		
+	}
+	
+	static void anagramCheckMap() {
+		Scanner in = new Scanner(System.in);
+		System.out.println("Enter two sequences of character to determine if they are anagrams.");
+		String w1 = in.nextLine(), w2 = in.nextLine();
+		
+		if(w1.equals(w2)) {
+			System.out.printf("%s and %s are anagrams. ", w1,w2);
+			return;
+		}
+		if(w1.length() != w2.length()) { 
+			System.out.printf("%s and %s are not anagrams.", w1,w2);
+			return;
+		}
+		// Make a map of upper case characters
+		Map<Character, Integer> letterMap = new HashMap<Character, Integer>();
+		for (int i = 65; i < 91; i++) letterMap.put((char)i, 0);
+		char[] wordOne = w1.toUpperCase().toCharArray();
+		char[] wordTwo = w2.toUpperCase().toCharArray();
+		
+		// Compares word one to keys and increments values by each occurrence.
+		for (int i = 0; i<wordOne.length; i++) {
+			if(letterMap.containsKey(wordOne[i])) {
+				int value = letterMap.get(wordOne[i]);
+				value++; 
+				letterMap.put(wordOne[i], value);
+			}
+		}
+		// Compares word two to current key/values in the map and decrements
+		for (int i = 0; i < wordTwo.length;i++) {
+			if(letterMap.containsKey(wordTwo[i])) {
+				int value = letterMap.get(wordTwo[i]);
+				value--; 
+				// If value is negative, character did not exist 
+				if (value < 0) {
+					System.out.printf("%s and %s are not anagrams.", w1,w2);
+					return;
+				}
+				letterMap.put(wordTwo[i], value);
+			}
+		}
+		System.out.printf("%s and %s are anagrams!", w1,w2);
+	}
+	public static int binarySearch(int[] arr, int startIndex, int endIndex, int targetNumber) {
+		Arrays.sort(arr);
+		if (endIndex >= startIndex) {
+			int mid = (endIndex+startIndex)/2;
+			if (arr[mid]==targetNumber) return mid;
+			else if (arr[mid] > targetNumber) { // ignore right
+				return binarySearch(arr, startIndex, mid-1, targetNumber);
+			}
+			else if (arr[mid] < targetNumber) {
+				return binarySearch(arr, mid+1, endIndex, targetNumber);
+			}
+		}
+		return -1;
+	}
+	
+	public static int binarySearch(int[] arr, int targetNumber) {
+		Arrays.sort(arr);
+		System.out.println(Arrays.toString(arr));
+		System.out.println("Looking for " + targetNumber);
+		int left = 0, right = arr.length-1;
+		while (left<=right) {
+			int mid = (left+right)/2;
+			if (arr[mid] == targetNumber) {
+				return mid;
+			}
+			if (arr[mid] < targetNumber) {
+				left = mid+1;
+			}
+			else {
+				right = mid-1;
+			}
+		}
+		return -1;
+	}
+	
 }

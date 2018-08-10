@@ -15,6 +15,7 @@ import javax.swing.text.StyledEditorKit.ForegroundAction;
 import com.sun.corba.se.impl.oa.poa.ActiveObjectMap.Key;
 import com.sun.corba.se.spi.orb.StringPair;
 import com.sun.javafx.image.IntPixelAccessor;
+import com.sun.javafx.scene.EnteredExitedHandler;
 import com.sun.scenario.effect.impl.prism.PrImage;
 import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
 
@@ -36,6 +37,7 @@ import jdk.management.resource.internal.TotalResourceContext;
  *  8. Anagram checker
  *  **** Sort ****
  *  9. BinarySearch
+ *  10. 2D Array
 */
 public class Exercises {
 
@@ -53,10 +55,12 @@ public class Exercises {
 //		findTen();
 //		valuePassing();
 //		anagramCheck();
-		int[] arr = {100, 50, 73, 15, 9};
+//		int[] arr = {100, 50, 73, 15, 9};
 //		int targetIndex = binarySearch(arr, 0, arr.length-1, 100);
-		int targetIndex = binarySearch(arr, 73);
-		System.out.print("Target index is " + targetIndex);
+//		int targetIndex = binarySearch(arr, 73);
+//		System.out.print("Target index is " + targetIndex);
+//		twoDArray();
+		evenOrOddArray();
 	}
 	// Add two random number and query user for answer until right
 	public static void addUntilRight() {
@@ -321,6 +325,79 @@ public class Exercises {
 			}
 		}
 		return -1;
+	}
+	
+	public static String[][] twoDArray() {
+		Scanner in = new Scanner(System.in);
+		System.out.print("Please enter the row size: " );
+		int rowLength = in.nextInt();
+		System.out.print("Please enter the column size: " );
+		int colLength = in.nextInt();
+		
+		String[][] twoDee = new String[rowLength][colLength]; 
+		
+		for(int i = 0; i < twoDee.length; i ++) {
+			System.out.print("Row " + i +":\n");
+			for (int j = 0; j < twoDee[i].length; j++) {
+				System.out.print("Enter data: ");
+				twoDee[i][j]= in.next();
+			}
+		}
+		printMatrix(twoDee);
+		transposeMatrix(twoDee);
+		in.close();
+		return twoDee;
+	}
+	public static String[][] transposeMatrix(String[][] matrix) {
+		if (matrix.length <= 1) {
+			printMatrix(matrix);
+			return matrix;
+		}
+		String[][] transpose = new String[matrix[0].length][matrix.length];
+		for (int i = 0; i < matrix.length; i++) {
+			for(int j = 0; j < matrix[i].length; j++) {
+				transpose[j][i] = matrix[i][j];
+			}
+		}
+		System.out.print("Transposed Matrix\n");
+		printMatrix(transpose);
+		return transpose;
+	}
+	
+	static void printMatrix(String[][] twoDee) {
+		for (String[] nestedArray: twoDee) {
+			System.out.println(Arrays.toString(nestedArray));
+		}
+	}
+	
+	static void evenOrOddArray() {
+		int[][] arr = {{-1, 9, 99},{25,35},{217,19,21},{26,-10,10}};
+		//If arr is odd, there is always 1 more odd row.
+		int[] max = new int[arr.length/2];
+		int[] min = new int[arr.length/2+arr.length%2];
+		int total = 0,largeTotal = 0, smallTotal = 0;
+
+		for(int i = 0; i<arr.length; i++) {
+			int tempMax = arr[i][0], tempMin = arr[i][0];
+			for (int j = 1; j < arr[i].length; j++) {
+				// find largest
+				if (i%2 == 1)tempMax = Math.max(tempMax, arr[i][j]);
+				// find smallest
+				else tempMin = Math.min(tempMin, arr[i][j]);
+			}
+			if(i%2 == 1) max[i/2] = tempMax;
+			else min[i/2] = tempMin;
+		}	
+
+		for(int i = 0; i<max.length;i++){
+			largeTotal+=max[i];
+			smallTotal+=min[i];
+			total+=max[i]+min[i];
+		}
+		if (arr.length%2==1) smallTotal+=min[min.length-1];
+		System.out.printf("Largest Numbers in array: %s\nTotal: %d", Arrays.toString(max),largeTotal);
+		System.out.printf("\nSmallest #s in array: %s\nTotals: %d", Arrays.toString(min), smallTotal);
+		System.out.printf("\nTotals of both: %d", total);
 	}
 	
 }

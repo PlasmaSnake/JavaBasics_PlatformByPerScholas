@@ -60,7 +60,7 @@ public class Exercises {
 //		int targetIndex = binarySearch(arr, 73);
 //		System.out.print("Target index is " + targetIndex);
 //		twoDArray();
-		evenOrOddArray();
+//		evenOrOddArray();
 	}
 	// Add two random number and query user for answer until right
 	public static void addUntilRight() {

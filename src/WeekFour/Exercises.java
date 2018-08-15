@@ -20,6 +20,18 @@ public class Exercises {
 //		displayInfo(s1);
 //		displayInfo(s2);
 		
+		Manager m1 = new Manager(1001,"Bob","123 Fake Street", 12345678, 65000 );
+		Trainee t1 = new Trainee(1002,"Rob","321 Fake Street", 87654321, 45000 );
+		System.out.print("Manager's ");
+		m1.calculateSalary();
+		System.out.print("Trainee's ");
+		t1.calculateSalary();
+		System.out.print("Manager's ");
+		m1.calculateTransportAllowance();
+		System.out.print("Trainee's ");
+		t1.calculateTransportAllowance();
+		
+		
 	}
 
 	public static void displayInfo(Student s) {

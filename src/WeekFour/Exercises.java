@@ -3,6 +3,7 @@ package WeekFour;
  *  	a. Constructors - Person.java class and Shape.java class
  * 		b. Student Exercise
  * 		c. Employee
+ * 2. Exception handling 
  */		
 public class Exercises {
 
@@ -32,8 +33,8 @@ public class Exercises {
 //		System.out.print("Trainee's ");
 //		t1.calculateTransportAllowance();
 		
-		
-		
+		double tax = TaxCalculator.calculateTax("s", true, 19999d);
+		System.out.println(tax);
 		
 	}
 

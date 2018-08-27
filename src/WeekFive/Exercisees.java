@@ -72,7 +72,8 @@ public class Exercisees {
 			
 			while((line = reader.readLine())!= null) {
 				String[] tokens = line.split(COMMA_DELIMITER);
-				if (tokens.length < 2) tokens = new String[]{tokens[0], ""};
+//				if (tokens.length < 2) tokens = new String[]{tokens[0], ""};
+				
 				map.put(tokens[0], tokens[1]);
 			}
 			
